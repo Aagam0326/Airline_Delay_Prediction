@@ -1,56 +1,51 @@
-<<<<<<< HEAD
-# Airline_Delay_Project
-=======
-# ✈️ Airline Delay Prediction System using XGBoost
+# ✈️ Airline Delay Prediction System
 
-A machine learning project that predicts whether a flight will be delayed using historical airline operational data and the XGBoost classification algorithm.
+A machine learning project that predicts whether a flight will be delayed, built on historical airline operational data using an XGBoost classifier — with an interactive Streamlit app for live predictions.
 
 ---
 
-# 📌 Project Overview
+## 📌 Project Overview
 
-Flight delays create operational challenges for airlines and inconvenience for passengers. This project uses machine learning techniques to analyze airline data and predict flight delays based on multiple operational features.
+Flight delays are costly for airlines and frustrating for passengers. This project analyzes airline operational data — carrier, route, scheduled departure time, distance, and day of week — to predict the likelihood of a delay before it happens.
 
-The project includes:
+**Current status:** core pipeline and model are working end-to-end; performance tuning and explainability are in active progress (see [Roadmap](#-roadmap)).
 
-* Data preprocessing and feature engineering
-* Exploratory Data Analysis (EDA)
-* XGBoost model training
-* Hyperparameter tuning
-* Model evaluation and visualization
-* Interactive Streamlit web application
-
----
-
-# 🚀 Features
-
-✅ Flight delay prediction using XGBoost
-✅ Interactive Streamlit dashboard
-✅ Data preprocessing pipeline
-✅ Hyperparameter tuning
-✅ Model evaluation metrics
-✅ Visualization of prediction results
-✅ Modular backend structure
+The project covers:
+- Data cleaning and feature engineering
+- Exploratory Data Analysis (EDA)
+- XGBoost model training and hyperparameter tuning
+- Model evaluation with visualizations
+- An interactive Streamlit web app for predictions
 
 ---
 
-# 🛠️ Tech Stack
+## 🖼️ Demo
 
-| Category             | Technologies                |
-| -------------------- | --------------------------- |
-| Programming Language | Python                      |
-| Machine Learning     | Scikit-learn, XGBoost       |
-| Data Analysis        | Pandas, NumPy               |
-| Visualization        | Matplotlib, Seaborn, Plotly |
-| Web App              | Streamlit                   |
-| Model Serialization  | Joblib / Pickle             |
-| Notebook Environment | Jupyter Notebook            |
+> _Screenshots coming soon — add to `images/` and update the links below._
+
+| Dashboard | Prediction Output |
+|---|---|
+| `![Dashboard](images/dashboard.png)` | `![Prediction](images/prediction.png)` |
 
 ---
 
-# 📂 Project Structure
+## 🛠️ Tech Stack
 
-```text
+| Category | Technologies |
+|---|---|
+| Language | Python |
+| Machine Learning | Scikit-learn, XGBoost |
+| Data Analysis | Pandas, NumPy |
+| Visualization | Matplotlib, Seaborn, Plotly |
+| Web App | Streamlit |
+| Model Serialization | Joblib / Pickle |
+| Notebook Environment | Jupyter |
+
+---
+
+## 📂 Project Structure
+
+```
 Airline_Delay_Predictor/
 │
 ├── data/
@@ -84,259 +79,131 @@ Airline_Delay_Predictor/
 
 ---
 
-# 📊 Dataset Information
+## 📊 Dataset
 
-The dataset contains airline operational information such as:
+The dataset contains airline operational records, including:
 
-* Airline carrier
-* Departure airport
-* Arrival airport
-* Scheduled departure time
-* Distance traveled
-* Day of week
-* Flight delay status
+- Airline carrier
+- Departure & arrival airport
+- Scheduled departure time
+- Distance traveled
+- Day of week
+- Flight delay status (target)
 
-Target Variable:
-
-* `0` → On-Time Flight
-* `1` → Delayed Flight
+**Target variable**
+- `0` → On-time flight
+- `1` → Delayed flight
 
 ---
 
-# 🔍 Exploratory Data Analysis
+## 🔍 Exploratory Data Analysis
 
-The project includes EDA to:
+EDA was used to:
+- Identify delay patterns across carriers, routes, and times
+- Analyze feature distributions
+- Detect missing values
+- Study correlations between features
+- Understand class imbalance (delays are the minority class)
 
-* Identify delay patterns
-* Analyze feature distributions
-* Detect missing values
-* Study correlations between features
-* Understand class imbalance
-
-EDA Notebook:
-
-```text
-notebooks/eda.ipynb
-```
+Notebook: [`notebooks/eda.ipynb`](notebooks/eda.ipynb)
 
 ---
 
-# 🤖 Machine Learning Model
+## 🤖 Model
 
-## Model Used
+**XGBoost Classifier** — chosen for:
+- Strong performance on tabular data
+- Fast training
+- Built-in handling of imbalanced classes (`scale_pos_weight`)
+- Good baseline accuracy with room to tune
 
-### XGBoost Classifier
-
-XGBoost was selected because of:
-
-* High performance on tabular data
-* Faster training speed
-* Better handling of imbalanced datasets
-* Strong predictive accuracy
-
----
-
-# ⚙️ Model Training Pipeline
-
-The training workflow includes:
-
-1. Data Cleaning
-2. Feature Engineering
-3. Train-Test Split
-4. Encoding Categorical Features
-5. Model Training
-6. Hyperparameter Tuning
+### Training pipeline
+1. Data cleaning
+2. Feature engineering
+3. Train/test split
+4. Categorical encoding
+5. Model training
+6. Hyperparameter tuning
 7. Evaluation
-8. Model Saving
+8. Model saving
 
 ---
 
-# 📈 Model Performance
+## 📈 Current Performance
 
-| Metric    | Score |
-| --------- | ----- |
-| Accuracy  | 72%   |
-| Precision | 35%   |
-| Recall    | 58%   |
-| F1-Score  | 44%   |
+| Metric | Score |
+|---|---|
+| Accuracy | 72% |
+| Precision (Delayed) | 35% |
+| Recall (Delayed) | 58% |
+| F1-score (Delayed) | 44% |
 
-### Classification Report
+```
+          precision    recall  f1-score   support
 
-```text
-              precision    recall  f1-score   support
+ On-time       0.88      0.75      0.81
+ Delayed       0.35      0.58      0.44
 
-     On-time       0.88      0.75      0.81
-     Delayed       0.35      0.58      0.44
-
-    accuracy                           0.72
+accuracy                           0.72
 ```
 
----
+**Honest take:** accuracy looks fine, but the model is currently better at catching on-time flights than delays — precision on the "Delayed" class is the main thing being worked on next, since false positives are a real cost in deployment. Class imbalance handling and feature engineering are the planned next steps to improve this (see [Roadmap](#-roadmap)).
 
-# 📉 Model Evaluation
-
-Generated evaluation artifacts include:
-
-* Confusion Matrix
-* ROC Curve
-* Classification Report
-* Accuracy Metrics
-* Hyperparameter Tuning Summary
-
-Saved inside:
-
-```text
-outputs/
-```
+Evaluation artifacts (confusion matrix, ROC curve, tuning summary) are saved in [`outputs/`](outputs/).
 
 ---
 
-# 🖥️ Streamlit Web Application
+## 🖥️ Streamlit App
 
-The project includes an interactive Streamlit dashboard where users can:
+The app lets users:
+- Enter flight details
+- Get a delay probability prediction
+- View model outputs and basic airline insights
 
-* Enter flight information
-* Predict delay probability
-* Visualize model outputs
-* Explore airline insights
-
----
-
-# ▶️ Installation
-
-## 1. Clone the Repository
+### Run it locally
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/Aagam0326/Airline_Delay_Prediction.git
 cd Airline_Delay_Predictor
-```
 
----
-
-## 2. Create Virtual Environment
-
-### Windows
-
-```bash
 python -m venv venv
-venv\Scripts\activate
-```
+source venv/bin/activate   # Windows: venv\Scripts\activate
 
-### Linux / Mac
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-
----
-
-## 3. Install Dependencies
-
-```bash
 pip install -r requirements.txt
-```
 
----
-
-# ▶️ Run the Streamlit Application
-
-```bash
 streamlit run src/frontend/app.py
 ```
 
-After running, open the local Streamlit URL in your browser.
+---
+
+## 🧭 Roadmap
+
+Planned next, in priority order:
+
+- [ ] Improve precision/recall on the "Delayed" class (class imbalance handling, feature engineering)
+- [ ] Add SHAP explainability for feature-level interpretability
+- [ ] Real-time flight data API integration
+- [ ] Docker support
+- [ ] Cloud deployment (Streamlit Community Cloud / Hugging Face Spaces)
+- [ ] CI/CD pipeline
+- [ ] MLflow experiment tracking
 
 ---
 
-# 📦 Requirements
+## 👤 Author
 
-Main libraries used:
-
-```txt
-pandas
-numpy
-scikit-learn
-xgboost
-matplotlib
-seaborn
-plotly
-streamlit
-joblib
-```
+**Aagam Shah**
+- GitHub: [@Aagam0326](https://github.com/Aagam0326)
+- LinkedIn: [Aagam Shah](https://www.linkedin.com/in/aagam-shah-a3bb462b1/)
 
 ---
 
-# 🧠 Future Improvements
+## 📜 License
 
-Planned enhancements:
-
-* SHAP Explainability
-* Real-time Flight API Integration
-* Deep Learning Models
-* Cloud Deployment
-* Docker Support
-* CI/CD Pipeline
-* MLflow Experiment Tracking
+This project is licensed under the MIT License — see [LICENSE](LICENSE).
 
 ---
 
-# ☁️ Deployment Options
+## ⭐ Acknowledgements
 
-The project can be deployed using:
-
-* Streamlit Community Cloud
-* Render
-* Hugging Face Spaces
-* AWS EC2
-* Docker Containers
-
----
-
-# 📸 Screenshots
-
-Add screenshots of:
-
-* Streamlit Dashboard
-* Prediction Output
-* Evaluation Graphs
-* EDA Visualizations
-
-Example:
-
-```markdown
-![Dashboard](images/dashboard.png)
-```
-
----
-
-# 👨‍💻 Author
-
-Your Name
-
-* GitHub: your-github-profile
-* LinkedIn: your-linkedin-profile
-
----
-
-# 📜 License
-
-This project is licensed under the MIT License.
-
----
-
-# ⭐ Acknowledgements
-
-Special thanks to:
-
-* Scikit-learn
-* XGBoost
-* Streamlit
-* Open-source data science community
-
----
-
-# 💡 Resume Description
-
-Developed a machine learning-based airline delay prediction system using XGBoost, achieving optimized classification performance through hyperparameter tuning and interactive Streamlit deployment.
->>>>>>> 56e8f09 (Initail Commit')
+Built with Scikit-learn, XGBoost, Streamlit, and the broader open-source data science community.
