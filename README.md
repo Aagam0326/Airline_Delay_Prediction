@@ -194,7 +194,7 @@ Planned next, in priority order:
 
 **Aagam Shah**
 - GitHub: [@Aagam0326](https://github.com/Aagam0326)
-- LinkedIn: [Aagam Shah](https://www.linkedin.com/in/aagam-shah-a3bb462b1/)
+- LinkedIn: [Aagam Shah](https://www.linkedin.com/in/aagam-shah-v322006/)
 
 ---
 
